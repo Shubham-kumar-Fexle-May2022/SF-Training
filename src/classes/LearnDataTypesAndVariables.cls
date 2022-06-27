@@ -1,4 +1,27 @@
+/*      
+        @Description    :    Understand Datatypes in Apex And also Practise on Methods of Date Class , DateTime Class and String Class in Apex.
+
+        @Created By     :    Shubham Kumar
+        
+        @Created Date   :    25/06/2022
+
+        @Revision Logs  :    V1.0  - Created  -  Shubham Kumar
+                                V1.1  -  Modified  -  27/06/2022 By Shubham Kumar  -  Modified
+
+ */
+
 public with sharing class LearnDataTypesAndVariables {
+
+     /* 
+            Description     :       Learn about DataTypes in Apex
+
+            @args           :       
+
+            @return         :       void (Nohting)
+
+            @revision Log   :       V1.1  - Created  -  25/06/2022  - Shubham Kumar  - Used for Practise
+
+    */
     public static void dataTypePractice() {
         // 1.Integer -> It is used for store Integer number.
         Integer radius = 10;
@@ -53,6 +76,17 @@ public with sharing class LearnDataTypesAndVariables {
         dt = DateTime.now(); 
         System.debug('Current Date and time is ' + dt);
     }
+
+    /* 
+            Description     :       In this method we use Date class methods
+
+            @args           :       
+
+            @return         :       void (Nohting)
+
+            @revision Log   :       V1.1  - Created  -  25/06/2022  - Shubham Kumar  - Used for Practise
+
+    */
 
     public static void dateClassMethods() {
 
@@ -152,6 +186,17 @@ public with sharing class LearnDataTypesAndVariables {
 
     }
 
+     /* 
+            Description     :       In this method we use DateTime class methods
+
+            @args           :       
+
+            @return         :       void (Nohting)
+
+            @revision Log   :       V1.1  - Created  -  25/06/2022  - Shubham Kumar  - Used for Practise
+            
+    */
+
     public static void DateTimeClassMethods() {
 
         System.debug('------------addDays()--------------');
@@ -247,6 +292,17 @@ public with sharing class LearnDataTypesAndVariables {
         System.debug(ahlist);
 
     }
+
+     /* 
+            Description     :       In this method we use String class methods
+
+            @args           :       
+
+            @return         :       void (Nohting)
+
+            @revision Log   :       V1.1  - Created  -  26/06/2022  - Shubham Kumar  - Used for Practise
+            
+    */
 
     public static void StringClassMethods() {
 
@@ -407,13 +463,52 @@ public with sharing class LearnDataTypesAndVariables {
         System.debug('After using escapeJava method: ' + escapedstr);       
     }
 
-    public static void learnAboutlist() {
-        // Create an empty list of String
-        List<String> my_list = new List<String>();
-        // Create a nested list
-        List<List<Set<Integer>>> my_list_2 = new List<List<Set<Integer>>>();
-        System.debug(my_list);
+    /* 
+            Description     :       Understand about variable declaration and Initialization , case sensitivity
 
+            @args           :       
+
+            @return         :       void (Nohting)
+
+            @revision Log   :       V1.1  - Created  -  27/06/2022  - Shubham Kumar  - Used for Practise
+            
+    */
+
+    public static void learnAboutVariables() {
+        // Variable declaration and Initialization
+        Integer i1 = 0;
+        String str;
+        List<String> strList;
+        Set<String> s;
+        Map<ID, String> m;
+        System.debug('The value of i= ' + i1);
+        System.debug('Value of str= ' + str);
+
+        Boolean x = null;
+        Decimal d;
+        System.debug('Value of x= ' + x);
+
+        // Variable Scope
+        Integer i2;
+        {
+        // Integer i;  This declaration is not allowed
+        }
+
+        for (Integer j = 0; j < 10; j++);
+        for (Integer j = 0; j < 10; j++);
+
+        // case insensitive
+        Integer I=10;
+        Integer i3=20;
+        //Integer i;  This would be an error.
+        System.debug('The value of capital I= ' + I);
+        System.debug('The value of small i= ' + i3);
     }
 
+    public static void learnAboutConstants() {
+        final Integer PRIVATE_INT_CONST = 200;
+        System.debug('Constant value is= ' + PRIVATE_INT_CONST);
+        //PRIVATE_INT_CONST = PRIVATE_INT_CONST + 10; // it gives error at the time of change constant value.
+        System.debug(PRIVATE_INT_CONST);
+    }
 }
