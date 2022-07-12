@@ -30,13 +30,13 @@ public with sharing class ParentChildRecords {
         // Create the parent reference.
         // Used only for foreign key reference
         // and doesn't contain any other fields.
-        Account accountReference = new Account(MyExtID__c = 'SAP111111');                
+        Account accountReference = new Account(Id = '0015i000008vnNLAAY');                
         newOpportunity.Account = accountReference;
         
         // Create the Account object to insert.
         // Same as above but has Name field.
         // Used for the insert.
-        Account parentAccount = new Account(Name='Hallie', MyExtID__c='SAP111111');      
+        Account parentAccount = new Account(Name='Hallie', Id = '0015i000008vnNLAAY');      
         
         // Create the account and the opportunity.
         Database.SaveResult[] results = Database.insert(new SObject[] {parentAccount, newOpportunity });

@@ -211,7 +211,7 @@ public with sharing class UpdateRecords {
         // An account with external ID = 'SAP111111' already exists.
         // This sObject is used only for foreign key reference
         // and doesn't contain any other fields.
-        Account accountReference = new Account(MyExtID__c = 'SAP111111');                
+        Account accountReference = new Account(Id = '0015i000008wUQ1AAM');              
 
         // Add the account sObject to the opportunity.
         newOpportunity.Account = accountReference;
