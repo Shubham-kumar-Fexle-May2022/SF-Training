@@ -169,7 +169,7 @@
         <fullName>Address__c</fullName>
         <externalId>false</externalId>
         <label>Address</label>
-        <required>true</required>
+        <required>false</required>
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
         <type>TextArea</type>
@@ -319,7 +319,7 @@
         <fullName>Email__c</fullName>
         <externalId>false</externalId>
         <label>Email</label>
-        <required>true</required>
+        <required>false</required>
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Email</type>
@@ -339,7 +339,7 @@
         <description>Father&apos;s mobile number</description>
         <externalId>false</externalId>
         <label>Father Mobile Number</label>
-        <required>true</required>
+        <required>false</required>
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Phone</type>
@@ -349,7 +349,7 @@
         <externalId>false</externalId>
         <label>Father&apos;s Name</label>
         <length>20</length>
-        <required>true</required>
+        <required>false</required>
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Text</type>
@@ -399,7 +399,7 @@
         <description>Student mobile number</description>
         <externalId>false</externalId>
         <label>Mobile Number</label>
-        <required>true</required>
+        <required>false</required>
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Phone</type>
@@ -499,7 +499,7 @@
         <externalId>false</externalId>
         <label>Roll Number</label>
         <precision>15</precision>
-        <required>true</required>
+        <required>false</required>
         <scale>0</scale>
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
@@ -627,6 +627,19 @@
         <type>TextArea</type>
     </fields>
     <fields>
+        <fullName>Teacher__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Teacher</label>
+        <referenceTo>Teacher__c</referenceTo>
+        <relationshipLabel>Students</relationshipLabel>
+        <relationshipName>Students</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>X1st_Sem_Back__c</fullName>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
@@ -729,6 +742,17 @@
             <value>Art</value>
         </filters>
         <label>Art</label>
+    </listViews>
+    <listViews>
+        <fullName>BCA</fullName>
+        <columns>NAME</columns>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>Class__c</field>
+            <operation>equals</operation>
+            <value>BCA</value>
+        </filters>
+        <label>BCA</label>
     </listViews>
     <listViews>
         <fullName>Commerce</fullName>
