@@ -265,12 +265,12 @@ public with sharing class UpdateRecords {
 
         ID hodNameId = hodName.ID;
 
-        Teacher__c techName = new Teacher__c(Name = 'Sohan', HOD__c = hodNameId, College_Code__c = 'a075i0000016wQtAAI');
+        Teacher__c techName = new Teacher__c(Name = 'Tarun', HOD__c = hodNameId, College_Code__c = 'a075i0000016wQtAAI');
         insert techName;
 
         ID techNameId = techName.Id;
 
-        Student__c stuName = new Student__c(Name = 'Pankaj', Teacher__c = techNameId);
+        Student__c stuName = new Student__c(Name = 'Aman', Teacher__c = techNameId);
         insert stuName;
         } catch(Exception e) {
             System.debug('Error occur!' + e.getMessage());
@@ -278,11 +278,11 @@ public with sharing class UpdateRecords {
         System.debug('Record inserted successfully!');
 
         try{
-            Teacher__c teacherQuery = [Select HOD__r.Name, HOD__r.Department__c From Teacher__c Where Name = 'Pradeep' LIMIT 1];
+            Teacher__c teacherQuery = [Select HOD__r.Name, HOD__r.Department__c From Teacher__c Where Name = 'Tarun' LIMIT 1];
             teacherQuery.HOD__r.Department__c = 'BBA';
             update teacherQuery;
 
-            Student__c stuQuery = [Select Teacher__r.HOD__r.Name From Student__c Where Name = 'Pankaj' LIMIT 1];
+            Student__c stuQuery = [Select Teacher__r.HOD__r.Name From Student__c Where Name = 'Aman' LIMIT 1];
 
             HOD__c updateHOD = new HOD__c(Id = stuQuery.Teacher__r.HOD__c, Department__c = 'LLB');
             update updateHOD;
