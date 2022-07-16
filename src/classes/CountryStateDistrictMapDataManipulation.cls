@@ -1,3 +1,4 @@
+// Assignment - 17
 /*      
     *   @Description    :    Map Data manipulation using DML.(Class)
     *
@@ -5,18 +6,19 @@
     *        
     *   @Created Date   :    11/07/2022
     *
-    *   @Revision Logs  :    V1.0  - Created  -  Shubham Kumar
-    *                        V1.1  - Modified -   14/07/2022    
+    *   @Revision Logs  :    V1.0  - Created  -   Shubham Kumar
+    *                        V1.1  - Modified -   14/07/2022 (Shubham kumar)
+    *                        V1.2  - Modified -   15/07/2022 (Shubham kumar)    
  */
 
 public with sharing class CountryStateDistrictMapDataManipulation {
     // Global Map
     Map<String, Map<String, List<String>>> mapOfCountryWithStateAndDistrict = new Map<String, Map<String, List<String>>>();
-    // Class Parameterized Constructor
-    public CountryStateDistrictMapDataManipulation(String firstLetter) {
+    // Class Constructor
+    // Fill the global map
+    public CountryStateDistrictMapDataManipulation() {
         
         List<District__c> districtList = [Select Name, State_Name__r.Name, State_Name__r.Country_Name__r.Name From District__c];
-        List<String> combinationOfCountryStateAndDistrict = new list<String>();
         If(districtList.size() > 0) {
             for(District__c district : districtList) {
                 If(!mapOfCountryWithStateAndDistrict.containsKey(district.State_Name__r.Country_Name__r.Name)) {
@@ -27,34 +29,13 @@ public with sharing class CountryStateDistrictMapDataManipulation {
                 }
                 If(!mapOfCountryWithStateAndDistrict.get(district.State_Name__r.Country_Name__r.Name).get(district.State_Name__r.Name).contains(district.Name)) {
                     mapOfCountryWithStateAndDistrict.get(district.State_Name__r.Country_Name__r.Name).get(district.State_Name__r.Name).add(district.Name);
-                    If(district.State_Name__r.Country_Name__r.Name.startsWithIgnoreCase(firstLetter)) {
-                        If(district.State_Name__r.Name.startsWithIgnoreCase(firstLetter)) {
-                            If(district.Name.startsWithIgnoreCase(firstLetter)) {
-                                combinationOfCountryStateAndDistrict.add(district.State_Name__r.Country_Name__r.Name + ' -> ' + district.State_Name__r.Name + ' -> ' + district.Name);
-                            }
-                        }
-                    }
                 }
             }
         }
-        System.debug('Map of Country, State and District ==> ' + mapOfCountryWithStateAndDistrict);
-        System.debug('Combination of Country, State and District ==> ' + combinationOfCountryStateAndDistrict); 
-        findTotalStateAndDistrict();        
-    }
-
-    /* 
-        *    @Description    :      Inside this method we update the total districts, total states of country & states using Aggregate query.
-        *
-        *    @args           :       
-        *
-        *    @return         :       void (Nohting)
-        *
-        *    @revision Log   :       V1.1  - Created  -  13/07/2022  - Shubham Kumar  - Used for Practise
-        *                                    
-    */
-
-    // Method
-    public static void findTotalStateAndDistrict() {
+        System.debug('Map of Country, State and District ==> ' + mapOfCountryWithStateAndDistrict);  
+        
+        // Count total number or districts and states using aggregate query.
+        
         List<State__c> listOfDistrictInStateToUpdate = new List<State__c>();
         List<Country__c> listOfStateInCountryToUpdate = new List<Country__c>();
         List<Country__c> listOfDistrictInCountryToUpdate = new List<Country__c>();
@@ -101,6 +82,32 @@ public with sharing class CountryStateDistrictMapDataManipulation {
             update listOfDistrictInCountryToUpdate;
             System.debug('District List Of Country Has Updated!');
         }
+    }
+    /* 
+        *    @Description    :      Parameterized constructor (Find the combinatiobn of country, state and districts which start with a specific letter).
+        *
+        *    @args           :       
+        *
+        *    @return         :       void (Nohting)
+        *
+        *    @revision Log   :       V1.1  - Created  -  13/07/2022  - Shubham Kumar  - Used for Practise
+        *                                    
+    */
+
+    // Parameterized constructor
+    public CountryStateDistrictMapDataManipulation(String firstLetter) {
+        List<String> combinationOfCountryStateAndDistrict = new list<String>();
+        List<District__c> districtList = [Select Name, State_Name__r.Name, State_Name__r.Country_Name__r.Name From District__c];
+        for(District__c district : districtList) {
+            If(district.State_Name__r.Country_Name__r.Name.startsWithIgnoreCase(firstLetter)) {
+                If(district.State_Name__r.Name.startsWithIgnoreCase(firstLetter)) {
+                    If(district.Name.startsWithIgnoreCase(firstLetter)) {
+                        combinationOfCountryStateAndDistrict.add(district.State_Name__r.Country_Name__r.Name + ' -> ' + district.State_Name__r.Name + ' -> ' + district.Name);
+                    }
+                }
+            }
+        }
+        System.debug('Combination of Country, State and District ==> ' + combinationOfCountryStateAndDistrict);
     }
 
     /* 
@@ -185,15 +192,15 @@ public with sharing class CountryStateDistrictMapDataManipulation {
     }
 
     /*      
-    *   @Description    :    Wrapper class for district.(Inner Class)
-    *
-    *   @Created By     :    Shubham Kumar
-    *        
-    *   @Created Date   :    14/07/2022
-    *
-    *   @Revision Logs  :    V1.0  - Created  -  Shubham Kumar
-    *                             
-*/
+        *   @Description    :    Wrapper class for district.(Inner Class)
+        *
+        *   @Created By     :    Shubham Kumar
+        *        
+        *   @Created Date   :    14/07/2022
+        *
+        *   @Revision Logs  :    V1.0  - Created  -  Shubham Kumar
+        *                             
+    */
 
     public class DistrictWrapper {
         public String district;
