@@ -11,15 +11,17 @@
 // Here we used 3 events - before insert, after insert and before update
 
 trigger Trigger_Account on Account (before insert, after insert, before update) {
-    If(Trigger.isInsert && Trigger.isAfter) {
-        AccountTriggerHandler.sendEmailNotification(Trigger.New);
-    }
-    If(Trigger.isBefore && Trigger.isInsert) {
-        AccountTriggerHandler.addAccountNumberWithType(Trigger.New);
-    }
     If(Trigger.isBefore) {
+        If(Trigger.isInsert) {
+            AccountTriggerHandler.addAccountNumberWithType(Trigger.New);
+        }
         If(Trigger.isInsert || Trigger.isUpdate) {
             AccountTriggerHandler.insertAndUpdateRecord(Trigger.New);
+        }
+    }
+    If(Trigger.isAfter) {
+        If(Trigger.isInsert) {
+        AccountTriggerHandler.sendEmailNotification(Trigger.New);
         }
     }
 }
