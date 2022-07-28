@@ -16,7 +16,7 @@ public with sharing class AccountTriggerHandler {
         *
         *    @args           :       
         *
-        *    @return         :       void (Nohting)
+        *    @return         :       void (Nothing)
         *
         *    @revision Log   :       V1.1  - Created  -  20/07/2022  - Shubham Kumar 
         *                                    
@@ -49,14 +49,14 @@ public with sharing class AccountTriggerHandler {
         *
         *    @args           :       
         *
-        *    @return         :       void (Nohting)
+        *    @return         :       void (Nothing)
         *
-        *    @revision Log   :       V1.1  - Created  -  20/07/2022  - Shubham Kumar  
+        *    @revision Log   :       V1.1  - Created  -  21/07/2022  - Shubham Kumar  
         *                                    
     */ 
 
     public static void addAccountNumberWithType(List<Account> accList) {
-        Integer randomNumber = Integer.valueOf(Math.random() * 10000); // Generate a random number for AccountNumber.
+        Integer randomNumber = Integer.valueOf(Math.random() * 100000000); // Generate a random number for AccountNumber.
         for(Account acc : accList) {
             If(acc.Type == 'Saving Account') {
                 acc.AccountNumber = 'SB-'+ randomNumber;
@@ -71,7 +71,7 @@ public with sharing class AccountTriggerHandler {
         *
         *    @args           :       
         *
-        *    @return         :       void (Nohting)
+        *    @return         :       void (Nothing)
         *
         *    @revision Log   :       V1.1  - Created  -  20/07/2022 - Shubham kumar  
         *                                    
@@ -81,21 +81,120 @@ public with sharing class AccountTriggerHandler {
         for(Account acc : accList) {
             // If we insert a new record then it will execute.
             If(Trigger.isInsert) {
-                acc.Phone = '9685743251'; 
                 acc.Industry = 'Banking';  // Aotomatic populate at the time of account saved.
-                acc.Description = 'Account Created Successfully ' + userInfo.getUserNAme();
+                acc.Description = 'Account Created Successfully ' + userInfo.getUserName();
                 System.debug('Check Insert List:: Trigger.New ' + Trigger.New);
                 System.debug('Check Insert List:: Trigger.Old ' + Trigger.Old);
             }
             // If we update an existing record then it will execute.
             If(Trigger.isUpdate) {
-                acc.Phone = '9765324152';
                 acc.Industry = 'Agriculture';
-                acc.Rating = 'Hot';
-                acc.Website = 'www.fexle.com';
-                acc.Description = 'Account Updated Successfully ' + userInfo.getUserNAme();
+                acc.Description = 'Account Updated Successfully ' + userInfo.getUserName();
                 System.debug('Check Update List ::: Trigger.New ' + Trigger.New);
                 System.debug('Check Update List ::: Trigger.old ' + Trigger.old);
+            }
+        }
+    }
+
+    /* 
+        *    @Description    :      In this method we check all the events list for better understanding of triggers and try to to understand how does it work do.
+        *
+        *    @args           :       
+        *
+        *    @return         :       void (Nothing)
+        *
+        *    @revision Log   :       V1.1  - Created  -  27/07/2022 - Shubham kumar  
+        *                                    
+    */
+
+    public static void checkTriggerEvents(List<Account> accNewList, List<Account> accOldList) {
+        If(Trigger.isBefore) {
+            System.debug('--------------Check Before Trigger-----------');
+            If(Trigger.isInsert) {
+                System.debug('Check Insert List:: Trigger.New ' + Trigger.New);
+                System.debug('Check Insert List:: Trigger.Old ' + Trigger.Old);
+            }
+            If(Trigger.isUpdate) {
+                System.debug('Check Update List:: Trigger.New ' + Trigger.New);
+                System.debug('Check Update List:: Trigger.Old ' + Trigger.Old);
+            }
+            If(Trigger.isDelete) {
+                System.debug('Check Delete List:: Trigger.New ' + Trigger.New);
+                System.debug('Check Delete List:: Trigger.Old ' + Trigger.Old);
+            }
+        }
+        If(Trigger.isAfter) {
+            System.debug('-------------Check After Trigger-------------');
+            If(Trigger.isInsert) {
+                System.debug('Check Insert List:: Trigger.New ' + Trigger.New);
+                System.debug('Check Insert List:: Trigger.Old ' + Trigger.Old);
+            }
+            If(Trigger.isUpdate) {
+                System.debug('Check Update List:: Trigger.New ' + Trigger.New);
+                System.debug('Check Update List:: Trigger.Old ' + Trigger.Old);
+            }
+            If(Trigger.isDelete) {
+                System.debug('Check Delete List:: Trigger.New ' + Trigger.New);
+                System.debug('Check Delete List:: Trigger.Old ' + Trigger.Old);
+            }
+            If(Trigger.isUnDelete) {
+                System.debug('Check UnDelete List:: Trigger.New ' + Trigger.New);
+                System.debug('Check UnDelete List:: Trigger.Old ' + Trigger.Old);
+            }
+        }
+    }
+
+    /* 
+        *    @Description    :      This method automatically create a child contact at the time of account inserted.
+        *
+        *    @args           :       
+        *
+        *    @return         :       void (Nothing)
+        *
+        *    @revision Log   :       V1.1  - Created  -  22/07/2022 - Shubham kumar  
+        *                                    
+    */
+
+    public static void createAccountWithContact(List<Account> accList) {
+        List<Contact> conList = new List<Contact>();
+        for(Account acc : accList) {
+            Contact con = new Contact();
+            con.LastName = acc.Name+'_Contact';
+            con.AccountId = acc.Id;
+            con.Phone = '9719727963';
+            conList.add(con);
+        }
+        If(!conList.isEmpty()) {
+            insert conList;
+        }
+    }
+
+    /* 
+        *    @Description    :      The code of this method is responsible for creating related opportunity with a corresponding account.
+        *
+        *    @args           :       
+        *
+        *    @return         :       void (Nothing)
+        *
+        *    @revision Log   :       V1.1  - Created  -  22/07/2022 - Shubham kumar  
+        *                                    
+    */
+
+    public static void createAccountWithOpportunity(List<Account> accList) {
+        List<Opportunity> oppList = new List<Opportunity>();
+        for(Account acc : acclist) {
+            If(acc.NumberOfEmployees > 0) {
+                for(Integer i = 1; i <= acc.NumberOfEmployees; i++) {
+                    Opportunity opp = new Opportunity();
+                    opp.AccountId = acc.Id;
+                    opp.Name = acc.Name +'-'+ i;
+                    opp.CloseDate = System.today();
+                    opp.StageName = 'Prospecting';
+                    oppList.add(opp);
+                }
+                If(!oppList.isEmpty()) {
+                    insert oppList;
+                }
             }
         }
     }
