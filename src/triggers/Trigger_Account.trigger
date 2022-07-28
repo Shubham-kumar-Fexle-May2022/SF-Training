@@ -10,9 +10,9 @@
 **/
 // Here we used 3 events - before insert, after insert and before update
 
-trigger Trigger_Account on Account (before insert, after insert, before update) {
+trigger Trigger_Account on Account (before insert, after insert, before update, after update, before delete, after delete, after undelete) {
     If(Trigger.isBefore) {
-        If(Trigger.isInsert) {
+        If(Trigger.isInsert || Trigger.isUpdate) {
             AccountTriggerHandler.addAccountNumberWithType(Trigger.New);
         }
         If(Trigger.isInsert || Trigger.isUpdate) {
@@ -21,7 +21,10 @@ trigger Trigger_Account on Account (before insert, after insert, before update) 
     }
     If(Trigger.isAfter) {
         If(Trigger.isInsert) {
-        AccountTriggerHandler.sendEmailNotification(Trigger.New);
+            AccountTriggerHandler.sendEmailNotification(Trigger.New);
+            AccountTriggerHandler.createAccountWithContact(Trigger.New);
+            AccountTriggerHandler.createAccountWithOpportunity(Trigger.New);
         }
     }
+    AccountTriggerHandler.checkTriggerEvents(Trigger.New, Trigger.Old);
 }
