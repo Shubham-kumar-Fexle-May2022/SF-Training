@@ -22,9 +22,6 @@ public with sharing class OpportunityTriggerHandler {
         *                                    
     */
 
-    Integer insertFlag = 0;
-    Integer updateFlag = 0;
-
     public static void insertAndUpdateRecords(List<Opportunity> newOppList, Map<Id, Opportunity> oldMapOfOpp) {
         
         // Lists of SObjects.
@@ -270,7 +267,6 @@ public with sharing class OpportunityTriggerHandler {
             }
         }
         
-
         System.debug('Insert List -> ' + insertListOfSensors);
         System.debug('Update List -> ' + updateListOfSensors);
         // Insert List.
