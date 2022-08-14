@@ -13,8 +13,6 @@ trigger Trigger_Opportunity on Opportunity (before insert, after insert, after u
     If(Trigger.isAfter) {
         If(Trigger.isInsert || Trigger.isUpdate) {
             OpportunityTriggerHandler.insertAndUpdateRecords(Trigger.New, Trigger.oldMap);
-            // OpportunityTriggerHandler.updateAutomobileRecords(Trigger.New, Trigger.OldMap);
-            // OpportunityTriggerHandler.updateReturnToCustomer(Trigger.New);
         }
     }
 }
