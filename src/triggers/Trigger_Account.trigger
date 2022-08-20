@@ -26,5 +26,10 @@ trigger Trigger_Account on Account (before insert, after insert, before update, 
             AccountTriggerHandler.createAccountWithOpportunity(Trigger.New);
         }
     }
-    AccountTriggerHandler.checkTriggerEvents(Trigger.New, Trigger.Old);
+    //AccountTriggerHandler.checkTriggerEvents(Trigger.New, Trigger.Old);
+    If(Trigger.isBefore) {
+        If(Trigger.isInsert) {
+            AccountTriggerHandler.populateAccountWithProperty(Trigger.New);
+        }
+    }
 }
