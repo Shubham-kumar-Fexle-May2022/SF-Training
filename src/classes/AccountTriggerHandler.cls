@@ -215,10 +215,9 @@ public with sharing class AccountTriggerHandler {
         for (Account acc : newAccList) {
             setOfPropertyIds.add(acc.Property__c);
         }
-
-        List<Property__c> properties = [Select Id, Name, Status__c From Property__c Where Id In : setOfPropertyIds];
+        // Map of property object.
         Map<Id, Property__c> mapOfProperties = new Map<Id, Property__c>();
-        mapOfProperties.putAll(properties);
+        mapOfProperties.putAll([Select Id, Name, Status__c From Property__c Where Id In : setOfPropertyIds]);
 
         for (Account acc : newAccList) {
             if (acc.Status__c == null) {

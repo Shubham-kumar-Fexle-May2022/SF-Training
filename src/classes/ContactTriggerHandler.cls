@@ -63,18 +63,13 @@ public with sharing class ContactTriggerHandler {
         Set<Id> setOfAccIds = new Set<Id>();
         for(Contact con : newConList) {
             setOfAccIds.add(con.AccountId);
-        }
-        List<Account> accList = [Select Id, Name, Status__c, Property__c From Account Where Id In: setOfAccIds];
-        System.debug('accList ==> ' + accList);
-        
+        }        
 
         // Map of Account
         Map<Id, Account> mapOfAcc = new Map<Id, Account>();
-        mapOfAcc.putAll(accList);
+        mapOfAcc.putAll([Select Id, Name, Status__c, Property__c From Account Where Id In: setOfAccIds]);
         System.debug('mapOfAcc ==> ' + mapOfAcc);
-        // Map of Property
-        // Map<Id, Property__c> mapOfProperty = new Map<Id, Property__c>();
-        // mapOfProperty.putAll(propList);
+        
         for(Contact con : newConList) {
             If(con.Status__c == null) {
                 Account acc = mapOfAcc.get(con.AccountId);
