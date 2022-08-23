@@ -18,7 +18,7 @@ public with sharing class DistrictTriggerHandler {
         *
         *    @return         :       void(Nothing).
         *
-        *    @revision Log   :       V1.1  - Created  -  14/07/2022  - Shubham Kumar 
+        *    @revision Log   :       V1.1  - Created  -  14/08/2022  - Shubham Kumar 
         *                                    
     */
     // Insert Case
@@ -31,6 +31,7 @@ public with sharing class DistrictTriggerHandler {
         // List of country Ids
         List<Id> listOfContId = new List<Id>();
 
+        // retrieve district record according to district new list.
         List<District__c> listOfDistrict = [Select Id, Name, State_Name__c, State_Name__r.Country_Name__r.Id From District__c Where Id In : distNewList];            
         for (District__c dis : listOfDistrict) {
             listOfContId.add(dis.State_Name__r.Country_Name__r.Id);
@@ -85,7 +86,7 @@ public with sharing class DistrictTriggerHandler {
         *
         *    @return         :       void(Nothing).
         *
-        *    @revision Log   :       V1.1  - Created  -  14/07/2022  - Shubham Kumar 
+        *    @revision Log   :       V1.1  - Created  -  14/08/2022  - Shubham Kumar 
         *                                    
     */
     // Update Case
@@ -159,7 +160,7 @@ public with sharing class DistrictTriggerHandler {
         *
         *    @return         :       void(Nothing).
         *
-        *    @revision Log   :       V1.1  - Created  -  14/07/2022  - Shubham Kumar 
+        *    @revision Log   :       V1.1  - Created  -  14/08/2022  - Shubham Kumar 
         *                                    
     */
     // Delete Case
@@ -168,8 +169,6 @@ public with sharing class DistrictTriggerHandler {
         // Count total number or districts and states using aggregate query.
         List<State__c> listOfDistrictInStateToUpdate = new List<State__c>();
         List<Country__c> listOfStateInCountryToUpdate = new List<Country__c>();
-        //List<Country__c> listOfDistrictInCountryToUpdate = new List<Country__c>();
-
         // List of country Ids
         List<Id> listOfContId = new List<Id>();
 

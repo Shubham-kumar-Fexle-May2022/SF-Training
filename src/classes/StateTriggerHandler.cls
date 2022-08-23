@@ -17,7 +17,7 @@ public with sharing class StateTriggerHandler {
         *
         *    @return         :       void(Nothing).
         *
-        *    @revision Log   :       V1.1  - Created  -  17/07/2022  - Shubham Kumar 
+        *    @revision Log   :       V1.1  - Created  -  17/08/2022  - Shubham Kumar 
         *                                    
     */
     // Insert Case
@@ -29,7 +29,7 @@ public with sharing class StateTriggerHandler {
         Set<Id> setOfCountriesId = new Set<Id>();
 
         List<State__c> listOfStates = [Select Id, Name, Country_Name__c From State__c Where Id In : newStateList]; 
-
+        // Iterate state new list.
         for (State__c s : newStateList) {
             setOfCountriesId.add(s.Country_Name__c);
         }
@@ -38,7 +38,7 @@ public with sharing class StateTriggerHandler {
         System.debug('newStateList: ' + newStateList);
         
 
-        // Aggregate query for find total number of states inside country.
+        // Aggregate query for find total number of states and districts inside country.
         AggregateResult[] stateAggregateResultForCountry = [Select Count(Id) Total_State, Country_Name__c, SUM(Total_Districts__c) NumofDistricts From State__c GROUP BY Country_Name__c];
         for(State__c state : listOfStates) {
             for(AggregateResult ar : stateAggregateResultForCountry) {
@@ -68,7 +68,7 @@ public with sharing class StateTriggerHandler {
         *
         *    @return         :       void(Nothing).
         *
-        *    @revision Log   :       V1.1  - Created  -  16/07/2022  - Shubham Kumar 
+        *    @revision Log   :       V1.1  - Created  -  16/08/2022  - Shubham Kumar 
         *                                    
     */
     // Update Case
@@ -77,7 +77,6 @@ public with sharing class StateTriggerHandler {
         
         // Count total number or districts and states using aggregate query.
         List<Country__c> listOfStateInCountryToUpdate = new List<Country__c>();
-        //List<Country__c> listOfDistrictInCountryToUpdate = new List<Country__c>();
         Set<Id> setOfCountriesId = new Set<Id>();
 
         List<State__c> listOfStates = [Select Id, Name, Country_Name__c From State__c Where Id In : newStateList]; 
@@ -101,7 +100,7 @@ public with sharing class StateTriggerHandler {
         System.debug('newStateList 40: ' + newStateList);
         
 
-        // Aggregate query for find total number of states inside country.
+        // Aggregate query for find total number of states and districts inside country.
         AggregateResult[] stateAggregateResultForCountry = [Select Count(Id) Total_State, Country_Name__c, SUM(Total_Districts__c) NumofDistricts From State__c GROUP BY Country_Name__c];
         for(State__c state : listOfStates) {
             for(AggregateResult ar : stateAggregateResultForCountry) {
@@ -130,7 +129,7 @@ public with sharing class StateTriggerHandler {
         *
         *    @return         :       void(Nothing).
         *
-        *    @revision Log   :       V1.1  - Created  -  17/07/2022  - Shubham Kumar 
+        *    @revision Log   :       V1.1  - Created  -  17/08/2022  - Shubham Kumar 
         *                                    
     */
     // Delete Case
@@ -150,7 +149,7 @@ public with sharing class StateTriggerHandler {
         System.debug('oldStateList- ' + oldStateList);
         
 
-        // Aggregate query for find total number of states inside country.
+        // Aggregate query for find total number of states and districts inside country.
         AggregateResult[] stateAggregateResultForCountry = [Select Count(Id) Total_State, Country_Name__c, SUM(Total_Districts__c) NumofDistricts From State__c GROUP BY Country_Name__c];
         for(State__c state : listOfStates) {
             for(AggregateResult ar : stateAggregateResultForCountry) {
