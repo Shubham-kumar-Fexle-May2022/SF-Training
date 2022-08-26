@@ -198,4 +198,34 @@ public with sharing class AccountTriggerHandler {
             }
         }
     }
+
+    /* 
+        *    @Description    :      The code of this method is responsible for populate the property object status on Account object.
+        *
+        *    @args           :       
+        *
+        *    @return         :       void (Nothing)
+        *
+        *    @revision Log   :       V1.1  - Created  -  22/07/2022 - Shubham kumar  
+        *                                    
+    */
+
+    Public static void populateAccountWithProperty(List<Account> newAccList) {
+        Set<Id> setOfPropertyIds = new Set<Id>();
+        for (Account acc : newAccList) {
+            setOfPropertyIds.add(acc.Property__c);
+        }
+        // Map of property object.
+        Map<Id, Property__c> mapOfProperties = new Map<Id, Property__c>();
+        mapOfProperties.putAll([Select Id, Name, Status__c From Property__c Where Id In : setOfPropertyIds]);
+
+        for (Account acc : newAccList) {
+            if (acc.Status__c == null) {
+                Property__c prop = mapOfProperties.get(acc.Property__c);
+                if (prop.Status__c != null) {
+                    acc.Status__c = prop.Status__c;
+                }
+            }
+        }
+    }
 }
