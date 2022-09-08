@@ -1,0 +1,21 @@
+<template>
+    <Lightning-card title = "Interest Calculator" class="cardClass">
+        <div class="slds-box slds-theme_shade">
+            <lightning-input style= color:blue type = "decimal" label = "Enter Principal" onchange = {principalHandler}></lightning-input>
+            <lightning-input style = color:blue type= "decimal" label = "Enter No. Of Years" onchange = {timeChangeHandler}></lightning-input>
+            <lightning-input style = color:blue type = "decimal" label = "Enter Rate(%)" onchange = {rateChangeHandler}></lightning-input>
+        </div>
+        
+        <div class="btnClass">
+            <lightning-button variant = "brand" label = "Simple Interest" onclick = {calculateSIHandler} class="slds-m-left_x-small"></lightning-button>
+            <lightning-button variant = "brand" label = "Compound Interest" onclick = {calculateCIHandler} class="slds-m-left_x-small"></lightning-button>
+        </div>
+        
+        <div class = "outputClass">
+            <div class="slds-box slds-theme_shade">
+                <span><b>Result: </b></span>
+                <lightning-formatted-text value = {currentOutput}></lightning-formatted-text>
+            </div>
+        </div>
+    </Lightning-card>   
+</template>

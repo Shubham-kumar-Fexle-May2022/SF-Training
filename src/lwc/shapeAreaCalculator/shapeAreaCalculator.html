@@ -1,0 +1,37 @@
+<template>
+    <Lightning-card title = "Shape Area Calculator">
+        <lightning-layout multiple-rows>
+                <lightning-layout-item size="12" padding ="arround-medium">
+                    <lightning-input style= color:blue type ="number" label = "Enter Side Of Square" onchange= {sideChangeHandler}></lightning-input>
+                </lightning-layout-item>
+    
+                <lightning-layout-item size="12" padding ="arround-medium">
+                    <lightning-input style = color:blue type="number" label = "Enter Width Of Rectangle" onchange= {widthChangeHandler}></lightning-input>
+                </lightning-layout-item>
+    
+                <lightning-layout-item size="12" padding ="arround-medium">
+                    <lightning-input style = color:blue type ="number" label = "Enter Height Of Rectangle" onchange= {heightChangeHandler}></lightning-input>
+                </lightning-layout-item>
+    
+                <lightning-layout-item size="12" padding ="arround-medium">
+                    <lightning-input style = color:blue type ="number" label = "Enter diagonal1 for Rhombus" onchange= {diagonal1ChangeHandler}></lightning-input>
+                </lightning-layout-item>
+    
+                <lightning-layout-item size="12" padding ="arround-medium">
+                    <lightning-input style = color:blue type ="number" label = "Enter diagonal2 for Rhombus" onchange= {diagonal2ChangeHandler}></lightning-input>
+                </lightning-layout-item>
+
+            <lightning-layout-item size="12" padding ="arround-medium">
+                <lightning-button-group style = margin-top:0.5cm>
+                    <lightning-button style = color:blue label = "Square" icon-position="right" onclick = {calculateSqAreaHandler}></lightning-button>
+                    <lightning-button style = color:blue label = "Rectangle" icon-position="center" onclick = {calculateRectAreaHandler}></lightning-button>
+                    <lightning-button style = color:blue label = "Rhobus" icon-position="left" onclick = {calculateRhAreaHandler}></lightning-button>
+                </lightning-button-group>
+            </lightning-layout-item>
+
+            <lightning-layout-item size="12" padding ="arround-medium">
+                <lightning-formatted-text style = color:red value = {currentOutput}></lightning-formatted-text>
+            </lightning-layout-item>
+        </lightning-layout>
+    </Lightning-card>
+</template>
