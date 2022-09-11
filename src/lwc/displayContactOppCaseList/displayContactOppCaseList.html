@@ -1,0 +1,33 @@
+<template>
+    <lightning-card title="Get Contact, Opportunities, Cases Related to Account" icon-name="standard:account" class="searchBox" style = "border: 3px solid blue; display:block">
+        <div class = "slds-p-horizontal_x-small">
+            <lightning-combobox label="Accounts Available" value={value} placeholder="Select an Account" options={options} onchange={handleChangedValue}></lightning-combobox>
+        </div>
+    </lightning-card>
+    
+    <div style = "border: 3px solid blueviolet; display:block">
+        <template if:true={cardVisible}>
+            <lightning-card title="Contacts" icon-name="standard:contact">
+                <div style="height: auto; width: auto" class="slds-p-horizontal_x-small">
+                    <lightning-datatable key-field="Id" data={con} columns={conColumns}></lightning-datatable>
+                </div>
+            </lightning-card>
+        </template>
+        
+        <template if:true={cardVisible}>
+            <lightning-card title="Opportunities" icon-name="standard:opportunity">
+                <div style="height: auto; width: auto" class="slds-p-horizontal_x-small">
+                    <lightning-datatable key-field="Id" data={opp} columns={oppColumns}></lightning-datatable>
+                </div>
+            </lightning-card>
+        </template>
+        
+        <template if:true={cardVisible}>
+            <lightning-card title="Cases" icon-name="standard:case">
+                <div style="height: auto; width: auto" class="slds-p-horizontal_x-small">
+                    <lightning-datatable key-field="Id" data={cas} columns={casColumns}></lightning-datatable>
+                </div>
+            </lightning-card>
+        </template>
+    </div>
+</template>
