@@ -1,0 +1,14 @@
+<template>
+    <lightning-card title="LWC With Apex Method" icon-name="standard:account" style ="Border: 3px solid blue; display:block">
+        <p><b>Output: </b></p><br>
+        <div class="slds-p-left_small">
+            {message1} <br>
+            {message2} <br>
+            {message3}
+        </div>
+        <br>
+        <div style="text-align: center" class="slds-box slds-theme_shade">
+            <lightning-button variant="brand" label="Show Output" onclick={callApexMethod}></lightning-button>
+        </div>
+    </lightning-card>
+</template>
