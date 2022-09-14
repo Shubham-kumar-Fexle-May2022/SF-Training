@@ -1,0 +1,9 @@
+<template>
+    <lightning-card title = "Parent Component(Child to Parent)" icon-name="standard:account" style = "border: 3px solid red; display:block">
+        <div class="slds-p-horizontal_x-small">
+            <lightning-progress-bar title = 'ProgressBar' value = {barVal} size="large"></lightning-progress-bar>
+        </div>
+
+        <c-progress-bar-child-component oncallpasstoparent={passToParent}></c-progress-bar-child-component>
+    </lightning-card>
+</template>
